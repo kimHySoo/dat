@@ -5,6 +5,6 @@
 *.db
 
 __pycache__/
-*.py
+
 *.egg-info/
 *.log
