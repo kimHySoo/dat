@@ -1,0 +1,10 @@
+.env
+
+*.pid
+*.sock
+*.db
+
+__pycache__/
+*.py
+*.egg-info/
+*.log
