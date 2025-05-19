@@ -9,7 +9,8 @@ COLLECTION_NAME = "korean-texts"
 VECTOR_DIM = 768
 client = QdrantClient(url="http://qdrant:6333")
 
-model = SentenceTransformer("jhgan/ko-sbert-sts")
+# model = SentenceTransformer("jhgan/ko-sbert-sts")
+model=SentenceTransformer("sentence-transformers/all-mpnet-base-v2")
 
 @router.post("/init")
 def init_collection():
@@ -94,3 +95,20 @@ async def upload_json(file: UploadFile = File(...)):
 
     client.upsert(collection_name=COLLECTION_NAME, points=points)
     return {"status": "업로드 및 저장 완료", "count": len(points)}
+
+@router.get("/search_1")
+def search_text(query: str = Query(...), threshold: float = 0.75):
+    query_vec = model.encode(query).tolist()
+    results = client.search(
+        collection_name=COLLECTION_NAME,
+        query_vector=query_vec,
+        limit=10,
+        with_payload=True,
+        score_threshold=threshold
+    )
+    return {
+        "matches": [
+            {"text": r.payload.get("text", ""), "score": r.score}
+            for r in results
+        ]
+    }
