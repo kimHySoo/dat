@@ -1,7 +1,7 @@
 #docker compose up --build -d
 #docker에서 새로 pip하면 필요
 #pip freeze > requirements.txt
-#도커 종료 - 다시 실행하려면 오래걸림, 파일 수정하면 다시 켜야함
+#도커 종료 - 파일 수정하면 다시 켜야함
 #docker compose down 
 #docker ps -a 실행중인 도커
 #docker logs fastapi-app 로그, 에러확인
