@@ -10,7 +10,7 @@ VECTOR_DIM = 768
 client = QdrantClient(url="http://qdrant:6333")
 
 # model = SentenceTransformer("jhgan/ko-sbert-sts")
-model=SentenceTransformer("sentence-transformers/all-mpnet-base-v2")
+model = SentenceTransformer("sentence-transformers/distiluse-base-multilingual-cased-v2")
 
 @router.post("/init")
 def init_collection():
