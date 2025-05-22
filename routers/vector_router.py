@@ -7,7 +7,7 @@ from utils.get_topic import get_topic
 
 router = APIRouter()
 COLLECTION_NAME = "korean-texts"
-VECTOR_DIM = 768
+VECTOR_DIM = 512
 client = QdrantClient(url="http://qdrant:6333")
 
 # model = SentenceTransformer("jhgan/ko-sbert-sts")
