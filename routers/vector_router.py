@@ -3,6 +3,7 @@ from qdrant_client import QdrantClient
 from qdrant_client.http.models import Distance, VectorParams, PointStruct, Filter
 from sentence_transformers import SentenceTransformer
 import uuid, json
+from utils.get_topic import get_top_words
 
 router = APIRouter()
 COLLECTION_NAME = "korean-texts"
@@ -112,3 +113,14 @@ def search_text(query: str = Query(...), threshold: float = 0.75):
             for r in results
         ]
     }
+
+@router.get("/vector/top-words")
+def get_top_words_from_qdrant():
+    result = get_top_words(
+        qdrant_url="http://qdrant:6333",
+        collection_name="korean-texts",
+        stopwords_ko_path="utils/stopwords-ko.txt",
+        stopwords_en_path="utils/stopwords-en.txt"
+    )
+    return {"top_words": result}
+
