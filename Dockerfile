@@ -8,6 +8,7 @@ WORKDIR /app
 COPY requirements.txt requirements.txt
 RUN pip install --no-cache-dir --upgrade pip \
     && pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir "huggingface_hub[hf_xet]"
 
 # 프로젝트 전체 복사
 COPY . .
