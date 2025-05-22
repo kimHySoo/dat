@@ -1,4 +1,4 @@
-# utils/get_word.py
+# utils/get_topic.py
 
 import re
 from collections import Counter
@@ -19,7 +19,7 @@ def tokenize_and_clean(text: str, stopwords_ko: set, stopwords_en: set) -> list[
         if len(token) > 1 and token.lower() not in stopwords_en and token not in stopwords_ko
     ]
 
-def get_top_words(qdrant_url: str, collection_name: str, stopwords_ko_path: str, stopwords_en_path: str, top_n: int = 10):
+def get_topic(qdrant_url: str, collection_name: str, stopwords_ko_path: str, stopwords_en_path: str, top_n: int = 10):
     # Qdrant 연결
     client = QdrantClient(url=qdrant_url)
     points, _ = client.scroll(collection_name=collection_name, limit=10_000, with_payload=True)
