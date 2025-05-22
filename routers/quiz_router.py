@@ -1,17 +1,16 @@
 from fastapi import APIRouter, HTTPException
-from schemas.quiz_schemas import QuizRequest, QuizResponse
-from services.generate_quiz import generate_quiz
+from schemas.quiz_schemas import QuizBatchRequest, QuizBatchResponse
+from services.generate_quiz import generate_quizzes  # 새로운 함수 (get_topic 사용)
 
 router = APIRouter()
 
-@router.post("/generate", response_model=QuizResponse)
-async def create_quiz(request: QuizRequest):
+@router.post("/generate-batch", response_model=QuizBatchResponse)
+async def create_quiz_batch(request: QuizBatchRequest):
     try:
-        response = await generate_quiz(
+        results = await generate_quizzes(
             quiz_type=request.quiz_type,
-            topic=request.topic,
             config=request.config
         )
-        return response
+        return {"quizzes": results}
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
