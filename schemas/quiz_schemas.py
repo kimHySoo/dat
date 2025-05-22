@@ -1,16 +1,19 @@
-from pydantic import BaseModel, Field
-from typing import Optional, List, Dict
+from pydantic import BaseModel
+from typing import List, Dict
 
 class QuizRequest(BaseModel):
-    quiz_type: str  # 예: "mcq", "ox", "short"
+    quiz_type: str
     topic: str
-    config: Dict = {}
-
-class QuizOption(BaseModel):
-    option_text: str
-    is_correct: bool
+    config: Dict[str, str]
 
 class QuizResponse(BaseModel):
     question: str
-    options: Optional[List[QuizOption]] = None
     answer: str
+
+# 새로 추가
+class QuizBatchRequest(BaseModel):
+    quiz_type: str
+    config: Dict[str, str]
+
+class QuizBatchResponse(BaseModel):
+    quizzes: List[QuizResponse]
