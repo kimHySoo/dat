@@ -4,11 +4,14 @@ from qdrant_client.http.models import Distance, VectorParams, PointStruct, Filte
 from sentence_transformers import SentenceTransformer
 import uuid, json
 from utils.get_topic import get_topic
+from utils.settings import QDRANT_URL, COLLECTION_NAME, STOPWORDS_KO_PATH, STOPWORDS_EN_PATH
+
+client = QdrantClient(url=QDRANT_URL)
 
 router = APIRouter()
 COLLECTION_NAME = "korean-texts"
 VECTOR_DIM = 512
-client = QdrantClient(url="http://qdrant:6333")
+# client = QdrantClient(url="http://qdrant:6333")
 
 # model = SentenceTransformer("jhgan/ko-sbert-sts")
 model = SentenceTransformer("sentence-transformers/distiluse-base-multilingual-cased-v2")
@@ -114,13 +117,8 @@ def search_text(query: str = Query(...), threshold: float = 0.75):
         ]
     }
 
+
 @router.get("/vector/top-words")
 def get_top_words_from_qdrant():
-    result = get_topic(
-        qdrant_url="http://qdrant:6333",
-        collection_name="korean-texts",
-        stopwords_ko_path="utils/stopwords-ko.txt",
-        stopwords_en_path="utils/stopwords-en.txt"
-    )
+    result = get_topic(top_n=10)
     return {"top_words": result}
-

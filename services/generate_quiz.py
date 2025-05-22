@@ -54,13 +54,7 @@ async def generate_quiz(quiz_type: str, topic: str, config: dict) -> dict:
 
 # 여러 개 토픽에 대해 퀴즈 생성
 async def generate_quiz_batch(quiz_type: str, config: dict) -> list[dict]:
-    topics = get_topic(
-        qdrant_url=QDRANT_URL,
-        collection_name=COLLECTION_NAME,
-        stopwords_ko_path=STOPWORDS_KO_PATH,
-        stopwords_en_path=STOPWORDS_EN_PATH,
-        top_n=5
-    )
+    topics = get_topic(top_n=5)
 
     results = []
     for word, _ in topics:

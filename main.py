@@ -5,7 +5,7 @@
 #docker compose down 
 #docker ps -a 실행중인 도커
 #docker logs fastapi-app 로그, 에러확인
-#http://localhost:8000/docs 실행하고 조금 기다려야 열림
+#http://localhost:8000/docs 실행하고 조금 기다려야 열림, 1분 정도 걸림
 from fastapi import FastAPI
 from routers.quiz_router import router as quiz_router
 from routers.vector_router import router as vector_router
