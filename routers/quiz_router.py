@@ -4,7 +4,7 @@ from schemas.quiz_schemas import QuizRequest
 
 router = APIRouter()
 
-@router.post("/generate-batch")
+@router.post("/generate-batch", summary="문제생성", description="최빈 단어 5개로 문제 생성")
 async def create_quiz_batch(request: QuizRequest):
     try:
         result = await generate_quiz_batch(
